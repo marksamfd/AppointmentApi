@@ -22,9 +22,9 @@ export class SlotsController {
   constructor(private readonly slotsService: SlotsService) {}
 
   @UseGuards(ProviderAuthGuard)
-  @Get(':providerId/all')
-  allSlots(@Param('providerId') providerId: string, @Request() req) {
-    return this.slotsService.getSlotsByProviderId(providerId);
+  @Get('/all')
+  allSlots(@Request() req) {
+    return this.slotsService.getSlotsByProviderId(req.user.sub);
   }
 
   @UseGuards(UserAuthGuard)
@@ -75,6 +75,6 @@ export class SlotsController {
     @Param('slotId') slotId: string,
     @Request() req,
   ) {
-    this.slotsService.reserveSlot(providerId, slotId, req.user.sub);
+    this.slotsService.cancelReserveSlot(providerId, slotId, req.user.sub);
   }
 }

@@ -29,6 +29,10 @@ export class UserService {
     return this.clientModel.findOne({ email });
   }
 
+  async findById(id: string) {
+    return this.clientModel.findById({ id }).exec();
+  }
+
   async update(id: string, data: UpdateUserDT0) {
     return this.clientModel.findByIdAndUpdate(id, data);
   }

@@ -12,5 +12,6 @@ import { Provider, ProviderSchema } from '../../schemas/provider.schema';
   ],
   controllers: [SlotsController],
   providers: [SlotsService],
+  exports: [SlotsService],
 })
 export class SlotsModule {}

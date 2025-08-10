@@ -4,13 +4,16 @@ import { Client } from './client.schema';
 
 export type SlotDocument = HydratedDocument<Slot>;
 
-@Schema({ _id: false, versionKey: false })
+@Schema({})
 export class Slot {
   @Prop({ required: true })
   dateTime: Date;
 
   @Prop({ required: true })
   duration: number;
+
+  @Prop({ required: true, default: false })
+  isDone: boolean;
 
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Client' })
   bookedBy: Client;

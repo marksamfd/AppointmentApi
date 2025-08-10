@@ -1,0 +1,428 @@
+{
+	"info": {
+		"_postman_id": "e1097ba3-175c-4a18-bbd6-089ac40118e7",
+		"name": "Appointment System",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "29666009"
+	},
+	"item": [
+		{
+			"name": "Provider",
+			"item": [
+				{
+					"name": "Auth",
+					"item": [
+						{
+							"name": "Login",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"marksamfd@gmail.com\",\r\n    \"password\": \"?4+?814yI=)t\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/provider/auth/signin",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"provider",
+										"auth",
+										"signin"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Signup",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Mark Samuel\",\r\n    \"phone\": \"01279680748\",\r\n    \"specialty\":\"Eye\",\r\n    \"email\": \"marksamfd@gmail.com\",\r\n    \"password\":\"?4+?814yI=)t\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/provider/auth/signup",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"provider",
+										"auth",
+										"signup"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "List all slots for a provider",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/provider/slots/all",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"provider",
+								"slots",
+								"all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Slots",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{provider_auth_barrer}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"dateTime\": \"2024-08-13T12:02:02.696Z\",\r\n    \"duration\": 120\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/provider/slots/",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"provider",
+								"slots",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Remove a slot",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/provider/slots/:slotId",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"provider",
+								"slots",
+								":slotId"
+							],
+							"variable": [
+								{
+									"key": "slotId",
+									"value": "6898b2b0b95804f08f721107"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{provider_auth_barrer}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Auth",
+					"item": [
+						{
+							"name": "Login",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"marksamfd11@gmail.com\",\r\n    \"password\":\"?4+?814yI=)t\"\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:3000/user/auth/signin",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"user",
+										"auth",
+										"signin"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Signup",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Mark Samuel\",\r\n    \"phone\": \"01279680748\",\r\n    \"email\": \"marksamfd11@gmail.com\",\r\n    \"password\":\"?4+?814yI=)t\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:3000/user/auth/signup",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"user",
+										"auth",
+										"signup"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "List available slots for a provider",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/provider/slots/:providerId/available",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"provider",
+								"slots",
+								":providerId",
+								"available"
+							],
+							"variable": [
+								{
+									"key": "providerId",
+									"value": "6898da14ebbb8dcf3cf78775"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Reserve a slot",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/provider/slots/reserve/:providerId/:slotId",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"provider",
+								"slots",
+								"reserve",
+								":providerId",
+								":slotId"
+							],
+							"variable": [
+								{
+									"key": "providerId",
+									"value": "68949d416d3a11a5b7e70a8a"
+								},
+								{
+									"key": "slotId",
+									"value": "6898b2a5b95804f08f721105"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Remove Reservation",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/provider/slots/reserve/:providerId/:slotId",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"provider",
+								"slots",
+								"reserve",
+								":providerId",
+								":slotId"
+							],
+							"variable": [
+								{
+									"key": "providerId",
+									"value": "68949d416d3a11a5b7e70a8a",
+									"type": "string"
+								},
+								{
+									"key": "slotId",
+									"value": "6898daa7c629936fba1b54c7",
+									"type": "string"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2ODk4OWZhZDI3Y2EzMDVkYTAyNDQ0ZDIiLCJ1c2VybmFtZSI6Ik1hcmsgU2FtdWVsIiwicm9sZSI6MSwiaWF0IjoxNzU0ODM1NjQyLCJleHAiOjE3ODYzOTMyNDJ9.q_gAzTsaVt8fVwE6gpqLxdR6-dm7aUhUVlXYSObm68I",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "provider_auth_barrer",
+			"value": "",
+			"type": "default"
+		},
+		{
+			"key": "host",
+			"value": "",
+			"type": "string"
+		}
+	]
+}
