@@ -6,7 +6,7 @@ export type SlotDocument = HydratedDocument<Slot>;
 
 @Schema({})
 export class Slot {
-  @Prop({ required: true })
+  @Prop({ required: true, unique: true})
   dateTime: Date;
 
   @Prop({ required: true })

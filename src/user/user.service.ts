@@ -4,8 +4,6 @@ import { Client } from '../schemas/client.schema';
 import { Model } from 'mongoose';
 import CreateUserDTO from './dtos/create-user.dto';
 import { genSaltSync, hashSync } from 'bcrypt';
-import UpdateProviderDTO from '../provider/dtos/update-provider.dto';
-import UpdateUserDTO from './dtos/update-user.dto';
 
 class UpdateUserDT0 {}
 
@@ -29,8 +27,12 @@ export class UserService {
     return this.clientModel.findOne({ email });
   }
 
-  async findById(id: string) {
+  async findById(id: Client | undefined) {
     return this.clientModel.findById({ id }).exec();
+  }
+
+  async findEmailById(id: Client | undefined) {
+    return this.clientModel.findById(id, { email: 1 }).exec();
   }
 
   async update(id: string, data: UpdateUserDT0) {

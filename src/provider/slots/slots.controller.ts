@@ -46,8 +46,9 @@ export class SlotsController {
 
   @Post()
   @UseGuards(ProviderAuthGuard)
-  @UsePipes(new ValidationPipe({ whitelist: true }))
+  @UsePipes(new ValidationPipe({ whitelist: true, transform: true }))
   addSlot(@Request() req, @Body() data: CreateSlotDTO) {
+    // can make sure unique
     return this.slotsService.addNewSlot(req.user.sub, data);
   }
 

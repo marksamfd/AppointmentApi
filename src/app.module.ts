@@ -17,6 +17,10 @@ import { ScheduleModule } from '@nestjs/schedule';
     ConfigModule.forRoot(),
     MongooseModule.forRoot(
       `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASS}@cluster0.r5a1nwy.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`,
+      {
+        dbName: 'appointments',
+        appName: 'appointmentsAPI',
+      },
     ),
     ProviderModule,
     ProviderAuthModule,
