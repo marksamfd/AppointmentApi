@@ -1,8 +1,8 @@
-import { Injectable } from '@nestjs/common';
+import { ConflictException, Injectable } from '@nestjs/common';
 import CreateSlotDTO from './dtos/create-slot.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { Provider } from '../../schemas/provider.schema';
-import { Model, ObjectId, Types } from 'mongoose';
+import mongoose, { Model, ObjectId, Types } from 'mongoose';
 import { Slot } from '../../schemas/slot';
 import UpdateSlotDto from './dtos/update-slot.dto';
 
@@ -12,32 +12,32 @@ export class SlotsService {
     @InjectModel(Provider.name) private providerModel: Model<Provider>,
   ) {}
 
-  addNewSlot(providerId: string, slot: CreateSlotDTO) {
+  async addNewSlot(providerId: string, slot: CreateSlotDTO) {
     const slotStart = slot.dateTime;
     const slotEnd = new Date(
       slotStart.getTime() + Number(slot.duration) * 60 * 1000,
     );
-    return this.providerModel.updateOne(
-      { _id: providerId },
 
-      [
-        {
-          $set: {
-            canInsert: {
-              $not: {
-                $anyElementTrue: {
-                  $map: {
+    const overlapExists = await this.providerModel.aggregate([
+      { $match: { _id: new mongoose.Types.ObjectId(providerId) } },
+      {
+        $project: {
+          overlap: {
+            $gt: [
+              {
+                $size: {
+                  $filter: {
                     input: '$slots',
-                    as: 's',
-                    in: {
+                    as: 'slot',
+                    cond: {
                       $and: [
-                        { $lt: ['$$s.dateTime', slotEnd] },
+                        { $lt: ['$$slot.dateTime', slotEnd] },
                         {
                           $gt: [
                             {
                               $add: [
-                                '$$s.dateTime',
-                                { $multiply: ['$$s.duration', 60000] },
+                                '$$slot.dateTime',
+                                { $multiply: ['$$slot.duration', 60000] },
                               ],
                             },
                             slotStart,
@@ -48,47 +48,24 @@ export class SlotsService {
                   },
                 },
               },
-            },
+              0,
+            ],
           },
         },
-        {
-          $set: {
-            slots: {
-              $cond: [
-                '$canInsert',
-                { $concatArrays: ['$slots', [{ ...slot }]] },
-                '$slots',
-              ],
-            },
-          },
-        },
-        { $unset: 'canInsert' },
-      ],
-    );
+      },
+    ]);
+    console.log({ overlapExists });
+    if (!overlapExists[0]?.overlap) {
+      return this.providerModel
+        .updateOne(
+          { _id: new mongoose.Types.ObjectId(providerId) },
+          { $push: { slots: { ...slot } } },
+        )
+        .exec();
+    }
+    throw new ConflictException('Slot already exists');
   }
 
-  /*
-  *
-  slots: {
-            $not: {
-              $elemMatch: {
-
-                $expr: {
-                  $gt: [
-                    {
-                      $add: [
-                        '$dateTime',
-                        { $multiply: ['$duration', 60, 1000] },
-                      ],
-                    },
-                    slotStart,
-                  ],
-                },
-              },
-            },
-          },
-        },
-  * **/
   getSlotsByProviderId(providerId: string) {
     return this.providerModel.findById(providerId, { slots: true, _id: 0 });
   }

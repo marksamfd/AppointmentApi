@@ -14,6 +14,24 @@
 					"item": [
 						{
 							"name": "Login",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"let jsonData = pm.response.json();\r",
+											"\r",
+											"// Extract the token (adjust 'access_token' to your actual token key)\r",
+											"let token = jsonData.access_token; \r",
+											"\r",
+											"// Set the environment variable\r",
+											"pm.environment.set(\"provider_auth_barrer\", token); "
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
 							"request": {
 								"method": "POST",
 								"header": [],
@@ -71,7 +89,7 @@
 					]
 				},
 				{
-					"name": "List all slots for a provider",
+					"name": "List all slots for current provider",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -119,7 +137,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"dateTime\": \"2024-08-13T12:02:02.696Z\",\r\n    \"duration\": 120\r\n}",
+							"raw": "{\r\n    \"dateTime\": \"2025-08-28T09:59:56.135Z\",\r\n    \"duration\": 120\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -159,7 +177,7 @@
 							"variable": [
 								{
 									"key": "slotId",
-									"value": "6898b2b0b95804f08f721107"
+									"value": "6899b2707abf7d6bca352df0"
 								}
 							]
 						}
@@ -208,6 +226,24 @@
 					"item": [
 						{
 							"name": "Login",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"let jsonData = pm.response.json();\r",
+											"\r",
+											"// Extract the token (adjust 'access_token' to your actual token key)\r",
+											"let token = jsonData.access_token; \r",
+											"\r",
+											"// Set the environment variable\r",
+											"pm.environment.set(\"user_auth\", token); "
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
 							"request": {
 								"method": "POST",
 								"header": [],
@@ -285,7 +321,7 @@
 							"variable": [
 								{
 									"key": "providerId",
-									"value": "6898da14ebbb8dcf3cf78775"
+									"value": "6899b25a7abf7d6bca352dea"
 								}
 							]
 						}
@@ -312,11 +348,11 @@
 							"variable": [
 								{
 									"key": "providerId",
-									"value": "68949d416d3a11a5b7e70a8a"
+									"value": "6899b25a7abf7d6bca352dea"
 								},
 								{
 									"key": "slotId",
-									"value": "6898b2a5b95804f08f721105"
+									"value": "6899e0ad4cf380660525215c"
 								}
 							]
 						}
@@ -343,7 +379,7 @@
 							"variable": [
 								{
 									"key": "providerId",
-									"value": "68949d416d3a11a5b7e70a8a",
+									"value": "6898da14ebbb8dcf3cf78775",
 									"type": "string"
 								},
 								{
@@ -362,7 +398,7 @@
 				"bearer": [
 					{
 						"key": "token",
-						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2ODk4OWZhZDI3Y2EzMDVkYTAyNDQ0ZDIiLCJ1c2VybmFtZSI6Ik1hcmsgU2FtdWVsIiwicm9sZSI6MSwiaWF0IjoxNzU0ODM1NjQyLCJleHAiOjE3ODYzOTMyNDJ9.q_gAzTsaVt8fVwE6gpqLxdR6-dm7aUhUVlXYSObm68I",
+						"value": "{{user_auth}}",
 						"type": "string"
 					}
 				]
@@ -423,6 +459,11 @@
 			"key": "host",
 			"value": "",
 			"type": "string"
+		},
+		{
+			"key": "user_auth",
+			"value": "",
+			"type": "default"
 		}
 	]
 }

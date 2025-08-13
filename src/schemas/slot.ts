@@ -4,9 +4,12 @@ import { Client } from './client.schema';
 
 export type SlotDocument = HydratedDocument<Slot>;
 
-@Schema({})
+@Schema({ versionKey: false })
 export class Slot {
-  @Prop({ required: true, unique: true})
+  // @Prop({ type: mongoose.Schema.ObjectId, required: true })
+  // _id: mongoose.Types.ObjectId;
+
+  @Prop({ required: true })
   dateTime: Date;
 
   @Prop({ required: true })

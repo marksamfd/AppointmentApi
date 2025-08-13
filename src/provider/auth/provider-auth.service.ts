@@ -35,8 +35,12 @@ export class ProviderAuthService {
   }
 
   async create(data: CreateProviderDTO) {
-    return this.providerService.create({
-      ...data,
-    });
+    return this.providerService
+      .create({
+        ...data,
+      })
+      .then((doc) => {
+        _id: doc._id;
+      });
   }
 }

@@ -1,7 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { HydratedDocument, Schema as mongooseSchema } from 'mongoose';
+import mongoose, { HydratedDocument } from 'mongoose';
 import { Slot } from './slot';
-import { Document, SchemaTypes, Types } from 'mongoose';
 
 export type ProviderDocument = HydratedDocument<Provider>;
 
@@ -22,7 +21,6 @@ export class Provider {
   password: string;
   @Prop({
     type: [Slot],
-    ref: 'Slot',
   })
   slots: Slot[];
 }
